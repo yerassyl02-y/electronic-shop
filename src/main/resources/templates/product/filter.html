@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <title>Filter</title>
+    <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+<div class = "navbar" id="navbar">
+    <a href="/">Home</a>
+    <a href="/create">Create</a>
+    <a href="/filter">Filter</a>
+    <a class="active" href="/search">Search</a>
+</div>
+<div class="container">
+    <form th:action="@{'product/filter'}" method="post">
+        <div class="form-group">
+            Category
+            <label for="category">Choose a category:</label>
+            <select class="form-control" name="category" id="category" >
+                <option th:each="i : ${category}" th:value="${i.getId}" th:text="${i.getName()}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+        Brand
+        <label for="brand">Choose a brand:</label>
+        <select class="form-control" name="brand" id="brand" >
+            <option th:each="i : ${brand}" th:value="${i.getId}" th:text="${i.getName()}"></option>
+        </select>
+         </div>
+        <div class="form-group">
+            <label for="active"><input type="checkbox" id="active" name="active">Active</label>
+        </div>
+        <div class="form-group">
+            <label for="priceFirstRange">Min
+                <input class = "form-control" type="text" id="priceFirstRange" name="priceFirstRange">
+            </label>
+            <label for="priceSecondRange">Max
+                <input class = "form-control" type="text" id="priceSecondRange" name="priceSecondRange">
+            </label>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary mt-2">Filter</button>
+        </div>
+    </form>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Description</th>
+            <th scope="col">Active</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="j : ${product_from_filter}">
+            <td scope="row" th:text="${j.getId()}"></td>
+            <td th:text="${j.getName()}"></td>
+            <td th:text="${j.getPrice()}"></td>
+            <td th:text="${j.getDescription()}"></td>
+            <td th:text="${j.isActive()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

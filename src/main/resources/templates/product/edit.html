@@ -1,0 +1,53 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css"/>
+</head>
+<body>
+<div class = "navbar" id="navbar">
+  <a class="active" href="/">Home</a>
+  <a href="/create">Create</a>
+</div>
+<div class="container">
+  <a href="/">Back to home</a>
+<form th:action="@{/product/edit/{id}(id=${product_to_edit.getId()})}"
+      th:object="${product_to_edit}" method="post">
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input class="form-control" type="text" th:field="*{name}" name="name" id="name">
+  </div>
+  <div class="form-group">
+    <label for="price">Price:</label>
+    <input class="form-control" type="number" th:field="*{price}" name="price" id="price">
+  </div>
+  <div class="form-group">
+    <label for="desc">Description:</label>
+    <input class="form-control" type="text" th:field="*{description}" name="desc" id ="desc">
+  </div>
+  <div class="form-group">
+    <label for="active">
+      <input th:type="checkbox" name="active" id="active" th:field ="*{active}" th:checked = "${active}">
+    </label>
+ </div>
+  <div class="form-group">
+    <label for="category">Choose a criteria:</label>
+    <select class="form-control" th:field="*{category}" name="category" id="category" >
+      <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="brand">Choose a criteria:</label>
+    <select class="form-control" th:field="*{brand}" name="brand" id="brand" >
+      <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"></option>
+    </select>
+  </div>
+  <div class="form-group">
+    <button class="btn btn-warning">Update Product</button>
+  </div>
+</form>
+</div>
+</body>
+</html>
